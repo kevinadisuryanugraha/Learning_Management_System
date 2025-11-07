@@ -30,6 +30,30 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->name('admin.users')
         ->middleware('permission:manage-users');
 
+    Route::get('/admin/users/create', [AdminController::class, 'create'])
+        ->name('admin.create')
+        ->middleware('permission:manage-users');
+
+    Route::post('/admin/store', [AdminController::class, 'store'])
+        ->name('admin.store')
+        ->middleware('permission:manage-users');
+
+    Route::get('/admin/users/{id}/edit', [AdminController::class, 'edit'])
+        ->name('admin.users.edit')
+        ->middleware('permission:manage-users');
+
+    Route::post('/admin/users/{id}/update', [AdminController::class, 'update'])
+        ->name('admin.users.update')
+        ->middleware('permission:manage-users');
+
+    Route::get('/admin/users/{id}/show', [AdminController::class, 'show'])
+        ->name('admin.users.show')
+        ->middleware('permission:manage-users');
+
+    Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])
+        ->name('admin.users.delete')
+        ->middleware('permission:manage-users');
+
     Route::post('/admin/users/{id}/assign', [App\Http\Controllers\AdminController::class, 'assignRole'])
         ->name('admin.users.assign')
         ->middleware('permission:manage-users');
