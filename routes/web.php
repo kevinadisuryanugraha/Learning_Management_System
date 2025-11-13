@@ -8,6 +8,7 @@ use App\Http\Controllers\ModulController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\PicController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubmodulController;
 use Illuminate\Support\Facades\Auth;
 
 // ===================== HALAMAN UTAMA =====================
@@ -59,11 +60,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 // ===================== INSTRUKTUR =====================
-Route::middleware(['auth', 'role:instruktur'])->group(function () {
-    Route::get('/instruktur/dashboard', [InstrukturController::class, 'index'])
-        ->name('instruktur.dashboard');
+Route::middleware(['auth', 'role:instruktur'])->prefix('instruktur')->name('instruktur.')->group(function () {
+    Route::get('/dashboard', [InstrukturController::class, 'index'])->name('dashboard');
 
-    Route::resource('modul', ModulController::class, ['as' => 'instruktur']);
+    // Modul
+    Route::resource('modul', ModulController::class)->names('modul');
+
+    // Submodul
+    Route::get('/modul/{modul_id}/submodul', [SubmodulController::class, 'index'])->name('submodul.index');
+    Route::post('/modul/{modul_id}/submodul', [SubmodulController::class, 'store'])->name('submodul.store');
+    Route::put('/submodul/{id}', [SubmodulController::class, 'update'])->name('submodul.update');
+    Route::delete('/submodul/{id}', [SubmodulController::class, 'destroy'])->name('submodul.destroy');
 });
 
 // ===================== SISWA =====================

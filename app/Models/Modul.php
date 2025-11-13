@@ -31,4 +31,10 @@ class Modul extends Model
     {
         return $this->belongsTo(User::class, 'id_member_instruktur');
     }
+
+    // Relas ke submodul
+    public function submodul()
+    {
+        return $this->hasMany(Submodul::class, 'modul_id');
+    }
 }
