@@ -125,6 +125,13 @@
                     <div data-i18n="Analytics">Dashboard Instruktur</div>
                 </a>
             </li>
+
+            <li class="menu-item {{ request()->routeIs('instruktur.modul.index') ? 'active' : '' }}">
+                <a href="{{ route('instruktur.modul.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Analytics">Managemen Modul</div>
+                </a>
+            </li>
         @endif
     </ul>
 

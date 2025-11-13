@@ -4,6 +4,7 @@ use App\Http\Controllers\KontrakKelasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InstrukturController;
+use App\Http\Controllers\ModulController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\PicController;
 use App\Http\Controllers\ProfileController;
@@ -61,6 +62,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:instruktur'])->group(function () {
     Route::get('/instruktur/dashboard', [InstrukturController::class, 'index'])
         ->name('instruktur.dashboard');
+
+    Route::resource('modul', ModulController::class, ['as' => 'instruktur']);
 });
 
 // ===================== SISWA =====================

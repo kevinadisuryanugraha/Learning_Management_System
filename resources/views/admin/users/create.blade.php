@@ -78,7 +78,6 @@
                                 <option value="">Pilih Role</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->name }}">{{ ucfirst($role->display_name) }}</option>
-                                    <option value="{{ $role->name }}">{{ ucfirst($role->display_name) }}</option>
                                 @endforeach
                             </select>
                         </div>
