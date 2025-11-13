@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+
 class AdminController extends Controller
 {
     public function index()
@@ -145,7 +146,6 @@ class AdminController extends Controller
 
         return redirect()->route('admin.users', compact('roles'))->with('success', 'Pengguna baru berhasil ditambahkan');
     }
-
 
     public function manageUsers()
     {

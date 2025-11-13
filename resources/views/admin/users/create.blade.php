@@ -78,6 +78,7 @@
                                 <option value="">Pilih Role</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->name }}">{{ ucfirst($role->display_name) }}</option>
+                                    <option value="{{ $role->name }}">{{ ucfirst($role->display_name) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -98,6 +99,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Tutup
+                        Keluar
                     </button>
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </div>
