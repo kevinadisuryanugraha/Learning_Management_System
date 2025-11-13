@@ -56,19 +56,83 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <!-- Dashboard -->
-        <li class="menu-item active">
-            <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
-            </a>
-        </li>
+        {{-- ======================== ADMIN ======================== --}}
+        @if (Auth::user()->hasRole('admin'))
+            <li class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Analytics">Dashboard</div>
+                </a>
+            </li>
 
-        <!-- Layouts -->
-        <li class="menu-item">
+            <li class="menu-item {{ request()->routeIs('admin.users') ? 'active' : '' }}">
+                <a href="{{ route('admin.users') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user"></i>
+                    <div data-i18n="Analytics">Data User</div>
+                </a>
+            </li>
+        @endif
+
+
+        {{-- ======================== SISWA ======================== --}}
+        @if (Auth::user()->hasRole('siswa'))
+            <li class="menu-item {{ request()->routeIs('siswa.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('siswa.dashboard') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-book"></i>
+                    <div data-i18n="Analytics">Dashboard Siswa</div>
+                </a>
+            </li>
+
+            <li class="menu-item {{ request()->routeIs('profile.show') ? 'active' : '' }}">
+                <a href="{{ route('profile.show') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-id-card"></i>
+                    <div data-i18n="Analytics">Profil Saya</div>
+                </a>
+            </li>
+        @endif
+
+
+        {{-- ======================== PIC ======================== --}}
+        @if (Auth::user()->hasRole('pic'))
+            <li class="menu-item {{ request()->routeIs('pic.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('pic.dashboard') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Analytics">Dashboard PIC</div>
+                </a>
+            </li>
+
+            <li class="menu-item {{ request()->routeIs('pic.kontrak.*') ? 'active' : '' }}">
+                <a href="{{ route('pic.kontrak.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-file"></i>
+                    <div data-i18n="Analytics">Kontrak Kelas</div>
+                </a>
+            </li>
+
+            <li class="menu-item {{ request()->routeIs('pic.reports') ? 'active' : '' }}">
+                <a href="{{ route('pic.reports') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-bar-chart"></i>
+                    <div data-i18n="Analytics">Laporan</div>
+                </a>
+            </li>
+        @endif
+
+
+        {{-- ======================== INSTRUKTUR ======================== --}}
+        @if (Auth::user()->hasRole('instruktur'))
+            <li class="menu-item {{ request()->routeIs('instruktur.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('instruktur.dashboard') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Analytics">Dashboard Instruktur</div>
+                </a>
+            </li>
+        @endif
+    </ul>
+
+    <!-- Layouts -->
+    {{-- <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Layouts</div>
+                <div data-i18n="Layouts">Data User</div>
             </a>
 
             <ul class="menu-sub">
@@ -98,9 +162,9 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
 
-        <li class="menu-header small text-uppercase">
+    {{-- <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>
         </li>
         <li class="menu-item">
@@ -369,6 +433,6 @@
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Documentation">Documentation</div>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </aside>

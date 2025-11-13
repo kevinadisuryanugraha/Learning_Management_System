@@ -86,6 +86,9 @@
         <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
         <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
         <script src="{{ asset('assets/assets/js/config.js') }}"></script>
+
+        {{-- Sweetaler2 Link --}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
     <body>
@@ -339,6 +342,37 @@
                 </div>
             </div>
         </div>
+
+{{-- ====================== SWEETALERT SECTION ====================== --}}
+    <script>
+        @if (session('status'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('status') }}",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Registrasi Gagal!',
+                text: "{{ session('error') }}",
+                confirmButtonColor: '#d33'
+            });
+        @endif
+
+        @if ($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                html: `{!! implode('<br>', $errors->all()) !!}`,
+                confirmButtonColor: '#d33'
+            });
+        @endif
+    </script>
 
         <!-- / Content -->
 

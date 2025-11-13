@@ -8,6 +8,14 @@ use Illuminate\Notifications\Notifiable;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 
+/**
+ * @method bool hasRole(string|array $roles)
+ * @method bool hasPermission(string|array $permissions)
+ * @method void attachRole(mixed $role)
+ * @method void detachRole(mixed $role)
+ * @method void syncRoles(array $roles)
+ * @method void assignRole(string|array $roles)
+ */
 class User extends Authenticatable implements LaratrustUser
 {
     use HasFactory, Notifiable, HasRolesAndPermissions;
@@ -29,5 +37,10 @@ class User extends Authenticatable implements LaratrustUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id');
     }
 }

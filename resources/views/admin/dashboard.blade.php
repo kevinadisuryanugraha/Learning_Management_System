@@ -9,8 +9,7 @@
             <p>Selamat datang, <b>{{ Auth::user()->name }}</b>. Anda memiliki akses penuh ke sistem.</p>
 
             <hr>
-
-
+            
             @permission('manage-users')
                 <a href="{{ route('admin.users') }}" class="btn btn-primary me-2">Kelola Pengguna</a>
             @endpermission
@@ -215,7 +214,7 @@
                         </div>
                     </div>
                     <!-- </div>
-                <div class="row"> -->
+                                            <div class="row"> -->
                     <div class="col-12 mb-4">
                         <div class="card">
                             <div class="card-body">

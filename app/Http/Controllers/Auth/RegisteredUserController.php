@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -15,7 +15,7 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * Tampilkan halaman register.
      */
     public function create(): View
     {
@@ -23,28 +23,45 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Proses registrasi user baru.
      */
+
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        try {
+            // Validasi data
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+            // Buat user baru
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
 
-        event(new Registered($user));
+            // Pastikan role 'siswa' ada, cari hanya berdasarkan 'name'
+            $role = Role::firstOrCreate(
+                ['name' => 'siswa'],
+                [
+                    'display_name' => 'Siswa',
+                    'description' => 'Akses default untuk user siswa',
+                ]
+            );
 
-        Auth::login($user);
+            // Hubungkan user ke role 'siswa'
+            $user->attachRole($role);
 
-        return redirect(route('dashboard', absolute: false));
+            // Event Laravel bawaan
+            event(new Registered($user));
+
+            // Redirect dengan pesan sukses
+            return redirect()->route('login')->with('status', 'Registrasi berhasil! Silakan login.');
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 }
