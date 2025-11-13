@@ -101,19 +101,12 @@
                 </a>
             </li>
 
-            <li class="menu-item {{ request()->routeIs('pic.kontrak.*') ? 'active' : '' }}">
-                <a href="{{ route('pic.kontrak.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-file"></i>
-                    <div data-i18n="Analytics">Kontrak Kelas</div>
-                </a>
-            </li>
-
-            <li class="menu-item {{ request()->routeIs('pic.reports') ? 'active' : '' }}">
+            {{-- <li class="menu-item {{ request()->routeIs('pic.reports') ? 'active' : '' }}">
                 <a href="{{ route('pic.reports') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-bar-chart"></i>
                     <div data-i18n="Analytics">Laporan</div>
                 </a>
-            </li>
+            </li> --}}
         @endif
 
 
